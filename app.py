@@ -235,7 +235,7 @@ def delete(id):
 
 @app.route('/errorOccured')
 def errorOccured():
-    return render_template('error.html', message = message)
+    return render_template('error.html', message = "Unexpected Error Occured")
 
 
 @app.route('/update/<int:id>', methods = ["POST", "GET"])
