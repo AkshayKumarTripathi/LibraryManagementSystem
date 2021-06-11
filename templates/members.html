@@ -1,0 +1,73 @@
+{% extends "base.html" %} {% block head %}
+<title>Members</title>
+{% endblock %} {% block body %}
+<div style="width: 70%; margin-left: auto; margin-right: auto">
+  <form action="/members" method="POST">
+    <div class="mb-3">
+      <label for="name" class="form-label">Member's Name</label>
+      <input
+        type="text"
+        class="form-control"
+        name="user_name"
+        placeholder="John Doe"
+      />
+    </div>
+    <div class="mb-3">
+      <label for="Balance" class="form-label">Balance</label>
+      <input
+        type="text"
+        class="form-control"
+        name="balance"
+        placeholder="5000₹"
+      />
+    </div>
+    <button type="submit" class="btn btn-primary">Submit</button>
+  </form>
+  <br />
+  <table class="table" style="color: white">
+    <thead>
+      <tr>
+        <th scope="col" style="width: 15%">Member ID</th>
+        <th scope="col">Name</th>
+        <th scope="col" style="width: 15%">Balance</th>
+        <th scope="col" style="width: 25%">Delete Member</th>
+      </tr>
+    </thead>
+    <!-- use a for loop to log every book record -->
+    {% for member in members %} {% if member.member_borrowed == False %}
+    <tbody>
+      <tr>
+        <th scope="row">{{member.member_id}}</th>
+        <td>{{member.member_name}}</td>
+        <td>{{member.member_balance}}</td>
+        <td>
+          <a href="delete_member/{{member.member_id}}"
+            ><button class="btn btn-primary">Delete</button></a
+          >
+          <a href="update/{{member.member_id}}"
+            ><button class="btn btn-primary">Update Balance</button></a
+          >
+        </td>
+      </tr>
+    </tbody>
+    {% else %}
+    <tbody>
+      <tr>
+        <th scope="row">{{member.member_id}}</th>
+        <td>{{member.member_name}}</td>
+        <td>{{member.member_balance}}</td>
+        <td>
+          <a href="#"
+            ><button class="btn btn-primary" disabled="True">Delete</button></a
+          >
+          <a href="update/{{member.member_id}}"
+            ><button class="btn btn-primary">Update Balance</button></a
+          >
+        </td>
+      </tr>
+    </tbody>
+    {% endif %} {% endfor %}
+  </table>
+</div>
+
+{% endblock %}

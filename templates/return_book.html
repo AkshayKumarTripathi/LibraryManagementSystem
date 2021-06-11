@@ -1,0 +1,33 @@
+{% extends "base.html" %} {% block head %}
+<title>issue Return</title>
+{% endblock %} {% block body %}
+<div style="width: 90%; margin-left: auto; margin-right: auto">
+  <table class="table" style="color: white">
+    <thead>
+      <tr>
+        <th scope="col" style="width: 6%">Book ID</th>
+        <th scope="col">Book Name</th>
+        <th scope="col" style="width: 15%">Author</th>
+        <th scope="col" style="width: 15%">Publisher</th>
+        <th scope="col" style="width: 15%">Operation</th>
+      </tr>
+    </thead>
+    <!-- use a for loop to log every book record -->
+    {% for book in books %}
+    <tbody>
+      <tr>
+        <th scope="row">{{book.book_id}}</th>
+        <td>{{book.book_name}}</td>
+        <td>{{book.author}}</td>
+        <td>{{book.publisher}}</td>
+        <td>
+          <a href="summary/{{book.book_id}}"
+            ><button class="btn btn-primary">Return</button></a
+          >
+        </td>
+      </tr>
+    </tbody>
+    {% endfor %}
+  </table>
+</div>
+{% endblock %}

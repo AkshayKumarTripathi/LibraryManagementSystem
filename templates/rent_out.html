@@ -1,0 +1,56 @@
+{% extends "base.html" %} {% block head %}
+<title>Rent Out</title>
+{% endblock %} {% block body %}
+<div>
+  <form
+    action="/rent_out/{{id}}"
+    method="POST"
+    style="width: 50%; margin-left: auto; margin-right: auto; padding-top: 10px"
+  >
+    <div class="mb-3">
+      <label for="ID" class="form-label">Enter Member's ID </label>
+      <input
+        type="text"
+        class="form-control"
+        name="id"
+        placeholder="ID Number eg 77"
+      />
+    </div>
+    <div style="text-align: center">
+      <button type="submit" class="btn btn-primary">Submit</button>
+    </div>
+  </form>
+  <br />
+  <table
+    class="table"
+    style="
+      color: white;
+      margin-top: 5%;
+      width: 70%;
+      margin-left: auto;
+      margin-right: auto;
+      padding-top: 10px;
+    "
+  >
+    <thead>
+      <tr>
+        <th scope="col" style="width: 6%">Member ID</th>
+        <th scope="col">Name</th>
+        <th scope="col" style="width: 15%">Balance</th>
+      </tr>
+    </thead>
+
+    <!-- use a for loop to log every book record -->
+    {% for member in members %}
+    <tbody>
+      <tr>
+        <th scope="row">{{member.member_id}}</th>
+        <td>{{member.member_name}}</td>
+        <td>{{member.member_balance}}</td>
+      </tr>
+    </tbody>
+    {% endfor %}
+  </table>
+</div>
+
+{% endblock %}

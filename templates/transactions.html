@@ -1,0 +1,33 @@
+{% extends "base.html" %} {% block head %}
+<title>Transactions</title>
+{% endblock %} {% block body %}
+<div style="width: 70%; margin-left: auto; margin-right: auto">
+  <table class="table" style="color: white">
+    <thead>
+      <tr>
+        <th scope="col" style="width: 45%">Book Name</th>
+        <th scope="col">User Name</th>
+        <th scope="col" style="width: 10%">Time</th>
+      </tr>
+    </thead>
+    <!-- use a for loop to log every book record -->
+    {% for trans in transactions %} {% if trans.direction == True %}
+    <tbody style="color: greenyellow">
+      <tr>
+        <th scope="row">{{trans.book_name}}</th>
+        <td>{{trans.member_name}}</td>
+        <td>{{trans.time}}</td>
+      </tr>
+    </tbody>
+    {% elif trans.direction == False %}
+    <tbody style="color: tomato">
+      <tr>
+        <th scope="row">{{trans.book_name}}</th>
+        <td>{{trans.member_name}}</td>
+        <td>{{trans.time}}</td>
+      </tr>
+    </tbody>
+    {% endif %} {% endfor %}
+  </table>
+</div>
+{% endblock %}

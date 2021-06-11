@@ -1,0 +1,27 @@
+{% extends "base.html" %} {% block head %}
+<title>Return Summary</title>
+{% endblock %} {% block body %}
+
+<div style="width: 90%; margin-left: auto; margin-right: auto">
+  <table class="table" style="color: white">
+    <h3>Members Summary</h3>
+    <thead>
+      <tr>
+        <th scope="col" style="width: 6%">Member ID</th>
+        <th scope="col">Member Name</th>
+        <th scope="col" style="width: 15%">Member's Balence</th>
+        <th scope="col" style="width: 20%">Amount Paid To Library</th>
+      </tr>
+    </thead>
+    <!-- use a for loop to log every book record -->
+    <tbody>
+      <tr>
+        <th scope="row">{{member.member_id}}</th>
+        <td>{{member.member_name}}</td>
+        <td>{{member.member_balance}}</td>
+        <td>{{member.library_fees_given}}</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+{% endblock %}

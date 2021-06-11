@@ -1,0 +1,56 @@
+{% extends "base.html" %} {% block head %}
+<title>Analytics</title>
+{% endblock %} {% block body %}
+<div style="width: 90%; margin-left: auto; margin-right: auto">
+  <table class="table" style="color: white">
+    <h3>Top Books</h3>
+    <br />
+    <thead>
+      <tr>
+        <th scope="col" style="width: 6%">Book ID</th>
+        <th scope="col">Book Name</th>
+        <th scope="col" style="width: 15%">Author</th>
+        <th scope="col" style="width: 15%">Publisher</th>
+        <th scope="col" style="width: 15%">Times Issued</th>
+      </tr>
+    </thead>
+    <!-- use a for loop to log every book record -->
+    {% for book in books %} {% if book.times_issued>=1 %}
+    <tbody>
+      <tr>
+        <th scope="row">{{book.book_id}}</th>
+        <td>{{book.book_name}}</td>
+        <td>{{book.author}}</td>
+        <td>{{book.publisher}}</td>
+        <td>{{book.times_issued}}</td>
+      </tr>
+    </tbody>
+    {% endif %} {% endfor %}
+  </table>
+  <br />
+  <br />
+  <br />
+  <table class="table" style="color: white">
+    <h3>Top Member's</h3>
+    <thead>
+      <tr>
+        <th scope="col" style="width: 6%">Member ID</th>
+        <th scope="col">Member's Name</th>
+        <th scope="col" style="width: 15%">Member's Balence</th>
+        <th scope="col" style="width: 20%">Amount Paid To Library</th>
+      </tr>
+    </thead>
+    <!-- use a for loop to log every book record -->
+    {% for member in people %}
+    <tbody>
+      <tr>
+        <th scope="row">{{member.member_id}}</th>
+        <td>{{member.member_name}}</td>
+        <td>{{member.member_balance}}</td>
+        <td>{{member.library_fees_given}}</td>
+      </tr>
+    </tbody>
+    {% endfor %}
+  </table>
+</div>
+{% endblock %}
