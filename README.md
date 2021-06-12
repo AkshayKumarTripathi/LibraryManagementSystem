@@ -1,5 +1,7 @@
-# LibraryManagementSystem
+# Library Management System
   "Simple Library Management System powered by Flask"
+  
+  Hosted Link : https://library-management-system100.herokuapp.com/
 
 # Overview
 ### Home page
@@ -22,13 +24,13 @@ they can go to the add books page and search using the keywords of the book.
 
 #####  Add Members Page
 
-* Disabled Delete buttons implies that the user has taken a book and the user cannot be deleted until they have returned the book.
+* Disabled Delete buttons implies that the member has taken a book and the member cannot be deleted until they have returned the book.
 
 ![404 Image Not Found](https://github.com/AkshayKumarTripathi/LibraryManagementSystem/blob/main/images/Members.png)
 
 ### Return Book Page
 
-* If the member wants to return the book the librarian can head to the return book page and click on return, upon return a summary page is displayed which shows the current balance of the user and the total amount paid to the library, the fees for renting a book is calculated by the formula => 500₹ (initial charges) + 10₹ X (The number of days for which the book was issued) 
+* If the member wants to return the book the librarian can head to the return book page and click on return, after return a summary page is displayed which shows the current balance of the user and the total amount paid to the library, the fees for renting a book is calculated by the formula => 500₹ (initial charges) + 10₹ X (The number of days for which the book was issued) 
 
 #####  Return Page
 
