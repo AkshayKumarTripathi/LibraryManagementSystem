@@ -18,26 +18,26 @@ def members():
         user_name = request.form['user_name']     # getting the user Name
         member_balance = request.form['balance']  # getting the amount the user wants to add initially
 
-        if not is_alphabets(user_name) or not member_balance.isnumeric():
+        # This means the user has entered wrong data
+        if not is_alphabets(user_name) or not member_balance.isnumeric(): 
 
-            # This means the user has entered wrong data
             message = "Please enter correct User-Name or Balance"
             return render_template('error.html', message = message, page = "members")
         
         # Every Thing is Correct
         try:
         
-            member = Members( member_name = user_name, member_balance = float(member_balance) )
-            db.session.add(member)
-            db.session.commit()
+            member = Members(member_name = user_name, member_balance = float(member_balance)) # Creating record
+            db.session.add(member)  # adding in the DB 
+            db.session.commit()     # commiting changes
 
         except:
 
-            return render_template('error.html', message = "Unexpected Error")
+            return render_template('error.html', message = "Unexpected Error, Cannot add Member")
 
-    
-    members = Members.query.all()
-    return render_template('members.html', members = members)
+    # no matter if the method is GET or POST we need to render the available member list.
+    members = Members.query.all()                               # Getting all the members
+    return render_template('members.html', members = members)   # rendering the page for members
         
 
 # this function loads all the transactons
@@ -87,7 +87,7 @@ def rent_out(book_id):
         if not id_of_the_member.isnumeric():
             return render_template('error.html', message = "Enter valid Id")
 
-
+        # Get the member from the form data
         member = Members.query.get(int(request.form['id']))
         
         # check if member is present or not:
@@ -122,6 +122,7 @@ def rent_out(book_id):
 
             if book == None:
                 return render_template('error.html', message = "Unexpected Error Occured")
+                
             book.quantity = 0
             book.times_issued += 1
             book.borrower = member.member_id
@@ -175,6 +176,7 @@ def addBooks():
 # renders all the books which are currently rented Out
 @app.route('/return_book')
 def return_book():
+
     #  Table Books => | book_id | book_name | author | publisher | quantity | borrower | isbn | times_issued |
 
     books = Books.query.filter(Books.quantity == 0).all()
@@ -218,9 +220,7 @@ def summary(id):
 @app.route('/delete_member/<int:id>')
 def delete(id):
 
-    # Table Books        => | book_id | book_name | author | publisher | quantity | borrower | isbn | times_issued |
     # Table members      => | member_id | member_name | member_balance | member_borrowed | library_fees_given |
-    # Table Transactions => | _id | book_name | member_name | direction | time |  
 
     try:
         task_to_delete =  Members.query.get(id)
@@ -240,9 +240,9 @@ def errorOccured():
 
 @app.route('/update/<int:id>', methods = ["POST", "GET"])
 def update(id):
-    #  Table Books => book_id| book_name | author | publisher | quantity | borrower | isbn | times_issued
-    # Table members => member_id| member_name | member_balance | member_borrowed | library_fees_given |
-    # Table Transactions => _id | book_name | member_name | direction | time |
+
+    # Table members      => | member_id | member_name | member_balance | member_borrowed | library_fees_given |
+
     if request.method == "POST":
         try:
             user = Members.query.get(id)

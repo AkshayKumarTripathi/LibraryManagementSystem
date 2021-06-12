@@ -1,44 +1,51 @@
 {% extends "base.html" %} {% block head %}
 <title>Add Books</title>
 {% endblock %} {% block body %}
-
-<form
-  action="/addBooks"
-  method="POST"
-  style="width: 70%; margin-left: auto; margin-right: auto"
->
-  <div class="mb-3">
-    <label for="title" class="form-label">Title</label>
-    <input
-      type="text"
-      class="form-control"
-      name="title"
-      placeholder="Harry Potter"
-    />
-  </div>
-  <div class="mb-3">
-    <label for="author" class="form-label">Author</label>
-    <input
-      type="text"
-      class="form-control"
-      name="author"
-      placeholder="J.K Rowling"
-    />
-  </div>
-  <div class="mb-3">
-    <label for="isbn" class="form-label">ISBN</label>
-    <input type="text" class="form-control" name="isbn" placeholder="I.S.B.N" />
-  </div>
-  <div class="mb-3">
-    <label for="publisher" class="form-label">Publisher</label>
-    <input
-      type="text"
-      class="form-control"
-      name="publisher"
-      placeholder="Dark Horse"
-    />
-  </div>
-  <button type="submit" class="btn btn-primary">Submit</button>
-</form>
+<div style="width: 70%; margin-left: auto; margin-right: auto">
+  <h4 style="margin-top: 5%; margin-bottom: 5%">
+    To add 20 random books click the submit button without any filters and to
+    add filters type the related keyword in the search box (You can select
+    atleast one filter and maximum four filters.)
+  </h4>
+  <form action="/addBooks" method="POST">
+    <div class="mb-3">
+      <label for="title" class="form-label">Title</label>
+      <input
+        type="text"
+        class="form-control"
+        name="title"
+        placeholder="Harry Potter"
+      />
+    </div>
+    <div class="mb-3">
+      <label for="author" class="form-label">Author</label>
+      <input
+        type="text"
+        class="form-control"
+        name="author"
+        placeholder="J.K Rowling"
+      />
+    </div>
+    <div class="mb-3">
+      <label for="isbn" class="form-label">ISBN</label>
+      <input
+        type="text"
+        class="form-control"
+        name="isbn"
+        placeholder="I.S.B.N"
+      />
+    </div>
+    <div class="mb-3">
+      <label for="publisher" class="form-label">Publisher</label>
+      <input
+        type="text"
+        class="form-control"
+        name="publisher"
+        placeholder="Dark Horse"
+      />
+    </div>
+    <button type="submit" class="btn btn-primary">Submit</button>
+  </form>
+</div>
 
 {% endblock %}
