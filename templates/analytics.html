@@ -41,7 +41,7 @@
       </tr>
     </thead>
     <!-- use a for loop to log every book record -->
-    {% for member in people %}
+    {% for member in people %} {% if member.library_fees_given>0 %}
     <tbody>
       <tr>
         <th scope="row">{{member.member_id}}</th>
@@ -50,7 +50,7 @@
         <td>{{member.library_fees_given}}</td>
       </tr>
     </tbody>
-    {% endfor %}
+    {% endif %}{% endfor %}
   </table>
 </div>
 {% endblock %}
