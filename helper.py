@@ -47,12 +47,12 @@ def is_alphabets(s : str):
 
 # This Function Makes The API call and returns The response
 def make_API_call():
-    title , author , isbn , publisher = request.form['title'] , request.form['author'], request.form['isbn'], request.form['publisher']
+    title , authors , isbn , publisher = request.form['title'] , request.form['author'], request.form['isbn'], request.form['publisher']
 
     end = ''
 
-    if title or author or isbn or publisher:
-        end = f'title={title}&author={author}&isbn={isbn}publisher={publisher}'
+    if title or authors or isbn or publisher:
+        end = f'title={title}&author={authors}&isbn={isbn}publisher={publisher}'
     
     response = requests.get(BASE_URL+end).json()['message']
 
