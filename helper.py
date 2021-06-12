@@ -52,7 +52,7 @@ def make_API_call():
     end = ''
 
     if title or authors or isbn or publisher:
-        end = f'title={title}&author={authors}&isbn={isbn}publisher={publisher}'
+        end = f'title={title}&authors={authors}&isbn={isbn}publisher={publisher}'
     
     response = requests.get(BASE_URL+end).json()['message']
 
