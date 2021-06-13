@@ -30,7 +30,7 @@
         <th scope="col" style="width: 15%">Member ID</th>
         <th scope="col">Name</th>
         <th scope="col" style="width: 15%">Balance</th>
-        <th scope="col" style="width: 25%">Delete Member</th>
+        <th scope="col" style="width: 25%">Operations</th>
       </tr>
     </thead>
     <!-- use a for loop to log every book record -->
@@ -42,7 +42,12 @@
         <td>{{member.member_balance}}</td>
         <td>
           <a href="delete_member/{{member.member_id}}"
-            ><button class="btn btn-primary">Delete</button></a
+            ><button
+              style="background-color: crimson; border: none"
+              class="btn btn-primary"
+            >
+              Delete
+            </button></a
           >
           <a href="update/{{member.member_id}}"
             ><button class="btn btn-primary">Update Balance</button></a
@@ -50,7 +55,9 @@
         </td>
       </tr>
     </tbody>
+
     {% else %}
+
     <tbody>
       <tr>
         <th scope="row">{{member.member_id}}</th>
@@ -58,7 +65,13 @@
         <td>{{member.member_balance}}</td>
         <td>
           <a href="#"
-            ><button class="btn btn-primary" disabled="True">Delete</button></a
+            ><button
+              class="btn btn-primary"
+              style="background-color: #808080; border: none"
+              disabled="True"
+            >
+              Delete
+            </button></a
           >
           <a href="update/{{member.member_id}}"
             ><button class="btn btn-primary">Update Balance</button></a
