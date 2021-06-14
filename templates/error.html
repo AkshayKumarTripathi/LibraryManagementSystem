@@ -1,4 +1,9 @@
 {% extends "base.html" %} {% block head %}
+<link
+  rel="icon"
+  type="image/png"
+  href="{{ url_for( 'static' , filename = 'error.png') }}"
+/>
 <title>Error Occured</title>
 {% endblock %} {% block body %}
 <h3 style="color: crimson; text-align: center; padding-top: 10%">

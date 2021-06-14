@@ -1,4 +1,9 @@
 {% extends "base.html" %} {% block head %}
+<link
+  rel="icon"
+  type="image/png"
+  href="{{ url_for( 'static' , filename = 'transaction.png') }}"
+/>
 <title>Transactions</title>
 {% endblock %} {% block body %}
 <div style="width: 70%; margin-left: auto; margin-right: auto">
