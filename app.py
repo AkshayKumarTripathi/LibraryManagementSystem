@@ -78,7 +78,10 @@ def members():
         if not member_balance.isnumeric():
             # This means the Librarian has entered wrong balance
             message = "Please enter correct balence"
-            return render_template('error.html', message = message, page = "members")
+            return render_template('error.html',
+                                    message = message,
+                                    page = "members"
+                                    )
         
         # Every Thing is Correct
         try:
@@ -136,8 +139,10 @@ def rent_out(book_id):
     # Table members      => | member_id| member_name | member_balance | member_borrowed | library_fees_given |
     # Table Transactions => | _id | book_name | member_name | direction | time |
 
-    # Select all the members from the table Members.
-    all_members = Members.query.filter(Members.member_borrowed == False).all()
+    # Render only those members who have not borrowed a book
+    all_members = Members.query.filter(
+                            Members.member_borrowed == False
+                            ).all()
 
     if request.method == "POST":
 
@@ -153,12 +158,13 @@ def rent_out(book_id):
         
         # check if member is present or not:
         if member == None:
-            return render_template('error.html', message = "Enter valid Id")
+            return render_template('error.html', message = "Not A valid Member!")
 
         if member.member_balance < -500:
             # Users Balance is less Than 500
 
-            message = f'The balance of {member.member_name} is {member.member_balance} which is less than -500 so please add money to your wallet before taking books.'
+            message = f'The balance of {member.member_name} is {member.member_balance} \
+            which is less than -500 so please add money to your wallet before taking books.'
 
             return render_template('error.html', message = message)
         
@@ -171,18 +177,18 @@ def rent_out(book_id):
 
         try:
 
-            member.member_borrowed = True           # Member has borrowed a book.
-            member.member_balance -= 500            # members balance Should Decrease by 500.
-            member.library_fees_given += 500        # Member paid 500 rs to the Library.
+            member.member_borrowed = True   # Member has borrowed a book.
+            member.member_balance -= 500    # members balance Should Decrease by 500.
+            member.library_fees_given += 500    # Member paid 500 rs to the Library.
 
             book = Books.query.get(book_id)         # Get the book from the book_ID.
             if book == None:
                 return render_template('error.html', message = "Unexpected Error Occured")
                 
             
-            book.quantity = 0                       # Book's quantity is decreased.
-            book.times_issued += 1                  # books Times issued is increased by 1.
-            book.borrower = member.member_id        # Books borrower is set to the id of member's id.
+            book.quantity = 0   # Book's quantity is decreased.
+            book.times_issued += 1  # books Times issued is increased by 1.
+            book.borrower = member.member_id    # Books borrower is set to the id of member's id.
 
             # New transaction is registered and added to transactions.
             trans = Transactions(
@@ -198,9 +204,16 @@ def rent_out(book_id):
 
         except:
 
-            return render_template('error.html', message = "Unexpected Error Occured")
+            return render_template(
+                                'error.html',
+                                message = "Unexpected Error Occured"
+                                )
         
-    return render_template('rent_out.html', id = book_id , members = all_members)
+    return render_template(
+                        'rent_out.html',
+                        id = book_id,
+                        members = all_members
+                        )
 
 
 # This function Makes the API calls and then redirects to the home page.
@@ -255,8 +268,14 @@ def return_book():
 
     #  Table Books => | book_id | book_name | author | publisher | quantity | borrower | isbn | times_issued |
 
-    books = Books.query.filter(Books.quantity == 0).all()
-    return render_template('return_book.html', books = books)
+    books = Books.query.filter(
+                        Books.quantity == 0     # render only those books which have been issued
+                        ).all()
+
+    return render_template(
+                        'return_book.html',
+                        books = books
+                        )
 
 
 # This is the function which reverts the data to its initial stage
@@ -272,7 +291,9 @@ def summary(id):
     member = Members.query.get(book.borrower)   # get the member using borrower column.
 
     # get the old transaction to get the time at which the book was issued.
-    old_trans = Transactions.query.filter(Transactions.book_name == book.book_name).first()
+    old_trans = Transactions.query.filter(
+        Transactions.book_name == book.book_name
+        ).first()
 
     # create a new transaction for the return of book
     trans = Transactions(
@@ -281,17 +302,20 @@ def summary(id):
                         direction = True
                         )
 
-    db.session.add(trans)                       # Add it to the session.
-    book.borrower = -1                          # set the borrower to -1 again as it has no borrower now.
+    db.session.add(trans)   # Add it to the session.
+    book.borrower = -1  # set the borrower to -1 again as it has no borrower now.
 
     # Calculate the balance of member by the formula => 10 * number of days for which the book was borrowed
-    member.member_balance -= (datetime.utcnow() - old_trans.time).days * 10
+    charges = (datetime.utcnow() - old_trans.time).days * 10
+
+    # deduct the amount from the members wallet
+    member.member_balance -= charges
 
     # add the amount deducted by the user wallet to the library profits
-    member.library_fees_given += (datetime.utcnow() - old_trans.time).days * 10
+    member.library_fees_given += charges
     
-    member.member_borrowed = False              # set this property to False as the member has not borrowed a book.
-    db.session.commit()                         # commit changes.
+    member.member_borrowed = False  # set this property to False as the member has not borrowed a book.
+    db.session.commit()     # commit changes.
 
     return render_template('summary.html', member = member)
 
