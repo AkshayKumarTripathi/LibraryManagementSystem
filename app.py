@@ -284,12 +284,6 @@ def add_custom_books():
         if Books.query.get(book_id) != None:
             return render_template('error.html', message = "Book Id already Exists in DB")
 
-        if not is_alphabets(author):
-            return render_template(
-                                'error.html',
-                                message = "Enter a valid author (should not contain numbers)"
-                                )
-
         # every thing is valid 
         try:
             book = Books(
