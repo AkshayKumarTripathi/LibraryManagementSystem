@@ -8,11 +8,7 @@
 <title>Add Books</title>
 {% endblock %} {% block body %}
 <div style="width: 70%; margin-left: auto; margin-right: auto">
-  <h4 style="margin-top: 5%; margin-bottom: 5%">
-    To add 20 random books click the submit button without any filters and to
-    add filters type the related keyword in the search box (You can select
-    atleast one filter and maximum four filters.)
-  </h4>
+  <h4 style="margin-top: 5%; margin-bottom: 5%">Add books from the API</h4>
   <form action="/addBooks" method="POST">
     <div class="mb-3">
       <label for="title" class="form-label">Title</label>
@@ -48,6 +44,59 @@
         class="form-control"
         name="publisher"
         placeholder="Dark Horse"
+      />
+    </div>
+    <button type="submit" class="btn btn-primary">Submit</button>
+  </form>
+  <h4 style="margin-top: 5%; margin-bottom: 5%">Add Custom Books</h4>
+  <form action="/addCustomBooks" method="POST">
+    <div class="mb-3">
+      <label for="book_id" class="form-label">BOOK ID</label>
+      <input
+        type="number"
+        class="form-control"
+        name="book_id"
+        placeholder="1723"
+        required
+      />
+    </div>
+    <div class="mb-3">
+      <label for="book_name" class="form-label">Book Name</label>
+      <input
+        type="text"
+        class="form-control"
+        name="book_name"
+        placeholder="Life Of Pi"
+        required
+      />
+    </div>
+    <div class="mb-3">
+      <label for="author" class="form-label">Author</label>
+      <input
+        type="text"
+        class="form-control"
+        name="author"
+        placeholder="Barack Obama"
+        required
+      />
+    </div>
+    <div class="mb-3">
+      <label for="publisher" class="form-label">Publisher</label>
+      <input
+        type="text"
+        class="form-control"
+        name="publisher"
+        placeholder="Dark Horse"
+        required
+      />
+    </div>
+    <div class="mb-3">
+      <label for="isbn" class="form-label">ISBN</label>
+      <input
+        type="text"
+        class="form-control"
+        name="isbn"
+        placeholder="I.S.B.N"
       />
     </div>
     <button type="submit" class="btn btn-primary">Submit</button>

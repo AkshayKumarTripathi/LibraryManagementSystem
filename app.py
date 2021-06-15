@@ -4,10 +4,11 @@ from random import randint
 import sqlite3
 
 # imports - third party imports
-from flask import Flask, render_template, request, redirect
+from flask import Flask, render_template, request, redirect, flash
 from flask.helpers import url_for
 from flask_sqlalchemy import SQLAlchemy
 import requests
+from werkzeug.wrappers import response
 
 # setting up Flask instance
 app = Flask(__name__)
@@ -94,7 +95,7 @@ def members():
                             
             db.session.add(member)  # adding in the DB 
             db.session.commit()     # commiting changes
-
+            
         except:
 
             return render_template('error.html', message = "Unexpected Error, Cannot add Member")
@@ -260,6 +261,56 @@ def addBooks():
     else:
 
         return render_template('add_books.html')
+
+
+@app.route('/addCustomBooks', methods=["POST"])
+def add_custom_books():
+    if request.method == "POST":
+        book_id = request.form['book_id']
+        book_name = request.form['book_name']
+        author = request.form['author']
+        publisher = request.form['publisher']
+        isbn = request.form['isbn'] or 404
+
+        # checking for if book_id already exists or not and values are valid
+        
+        if not book_id.isnumeric():
+            return render_template(
+                                'error.html',
+                                message = "Please enter a valid book ID"
+                                )
+        
+        book_id = int(book_id)
+        if Books.query.get(book_id) != None:
+            return render_template('error.html', message = "Book Id already Exists in DB")
+
+        if not is_alphabets(author):
+            return render_template(
+                                'error.html',
+                                message = "Enter a valid author (should not contain numbers)"
+                                )
+
+        # every thing is valid 
+        try:
+            book = Books(
+                        book_id = book_id,
+                        book_name = book_name,
+                        author = author,
+                        publisher = publisher,
+                        isbn = isbn
+                        )
+
+            db.session.add(book)
+            db.session.commit()
+            return redirect(url_for('home'))
+
+        except:
+            return render_template('error.html', message = "Unexpected Error")
+        
+
+    else:
+        return render_template('error.html', message = "NOT AUTHORIZED")
+
 
 
 # renders all the books which are currently rented Out.
